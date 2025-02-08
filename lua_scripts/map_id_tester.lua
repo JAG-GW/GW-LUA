@@ -7,8 +7,8 @@ MapIDTester.__index = MapIDTester
 function MapIDTester.new()
     local self = setmetatable({}, MapIDTester)
     self.title = "MapID Tester"
-    self.log = ""
-    self.map_id = nil
+    self.log = "Hello World"
+    self.map_id = 0
     return self
 end
 

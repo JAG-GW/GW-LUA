@@ -4,9 +4,13 @@ This repository provides a comprehensive framework using the Py4GW library. The 
 
 ```
 PY4GWLIB/
-├── __init__.py
-├── TestScripts
+├── load_lua_script.py (script loader)
+├── lua_scripts
+│ ├── hello_world.lua (working)
+│ ├── map_id_tester.lua (not working)
 ├── LUACoreLib/
+│ ├── __init__.py (this file must exist even if empty)
+│ ├── lua_bridge.py
 │ ├── Agent.lua
 │ ├── AgentArray.lua
 │ ├── Effects.lua
@@ -22,5 +26,5 @@ PY4GWLIB/
 │ ├── Skill.lua
 │ ├── Skillbar.lua
 │ └── Utils.lua
-└── lua_bridge.py
+
 

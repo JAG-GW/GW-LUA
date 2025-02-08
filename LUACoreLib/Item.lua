@@ -57,6 +57,9 @@ function Item.GetSlot(item_id)
 end
 
 function Item.Rarity.GetRarity(item_id)
+    if item.rarity == nil then
+        return 0, "Unknown"
+    end
     return Item.item_instance(item_id).rarity.value, Item.item_instance(item_id).rarity.name
 end
 
