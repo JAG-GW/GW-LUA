@@ -1,7 +1,8 @@
 ```
 PY4GWLIB/
 ├── __init__.py
-├── include/
+├── TestScripts
+├── LUACoreLib/
 │ ├── Agent.lua
 │ ├── AgentArray.lua
 │ ├── Effects.lua
