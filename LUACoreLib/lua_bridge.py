@@ -18,10 +18,10 @@ class LuaBridge:
         self._setup_lua_environment()
         
         
-
    def _setup_lua_environment(self):
     # Ensure LUAcoreLib_dir is correctly set
-    lua_lib_dir = str(self.LUAcoreLib_dir).replace("\\", "/")
+    lua_lib_dir = str(self.LUAcoreLib_dir).replace("\\", "/")  # Path to Py4GW/LUACoreLib
+    lua_script_dir = str(self.script_dir).replace("\\", "/")  # Path to Py4GW/lua_scripts
 
     # Construct new Lua paths
     lua_package_path = f"{lua_lib_dir}/?.lua;{lua_lib_dir}/?/init.lua;./?.lua;./?/init.lua"
@@ -62,22 +62,22 @@ class LuaBridge:
     else:
         print("[LuaBridge] Error: CoreLib is missing from Py4GW!")
 
-    self.lua.globals()['Agent'] = Agent
-    self.lua.globals()['AgentArray'] = AgentArray
-    self.lua.globals()['Effects'] = Effects
-    self.lua.globals()['Enums'] = enums
-    self.lua.globals()['PyImGui'] = PyImGui
-    self.lua.globals()['ImGui'] = ImGui
-    self.lua.globals()['Inventory'] = Inventory
-    self.lua.globals()['Item'] = Item
-    self.lua.globals()['ItemArray'] = ItemArray
-    self.lua.globals()['Map'] = Map
-    self.lua.globals()['Merchant'] = Merchant
-    self.lua.globals()['Party'] = Party
-    self.lua.globals()['Player'] = Player
-    self.lua.globals()['Quest'] = Quest
-    self.lua.globals()['Skill'] = Skill
-    self.lua.globals()['Skillbar'] = Skillbar
+    #self.lua.globals()['Agent'] = Agent
+    #self.lua.globals()['AgentArray'] = AgentArray
+    #self.lua.globals()['Effects'] = Effects
+    #self.lua.globals()['Enums'] = enums
+    #self.lua.globals()['PyImGui'] = PyImGui
+    #self.lua.globals()['ImGui'] = ImGui
+    #self.lua.globals()['Inventory'] = Inventory
+    #self.lua.globals()['Item'] = Item
+    #self.lua.globals()['ItemArray'] = ItemArray
+    #self.lua.globals()['Map'] = Map
+    #self.lua.globals()['Merchant'] = Merchant
+    #self.lua.globals()['Party'] = Party
+    #self.lua.globals()['Player'] = Player
+    #self.lua.globals()['Quest'] = Quest
+    #self.lua.globals()['Skill'] = Skill
+    #self.lua.globals()['Skillbar'] = Skillbar
     
     try:
         # Load Lua script

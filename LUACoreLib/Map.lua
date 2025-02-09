@@ -1,28 +1,28 @@
 local Map = {}
 
-function Map.map_instance()
+function GetInstance()
     return PyMap.PyMap()
 end
 
-function Map.IsMapReady()
-    return Map.map_instance().is_map_ready
+function IsReady()
+    return GetInstance().is_map_ready
 end
 
-function Map.IsOutpost()
-    return Map.map_instance().instance_type:GetName() == "Outpost"
+function IsOutpostMap()
+    return GetInstance().instance_type:GetName() == "Outpost"
 end
 
-function Map.IsExplorable()
-    return Map.map_instance().instance_type:GetName() == "Explorable"
+function IsExplorableMap()
+    return GetInstance().instance_type:GetName() == "Explorable"
 end
 
-function Map.IsMapLoading()
-    return Map.map_instance().instance_type:GetName() == "Loading"
+function IsLoading()
+    return GetInstance().instance_type:GetName() == "Loading"
 end
 
-function Map.GetMapName(mapid)
+function GetName(mapid)
     if mapid == nil then
-        map_id = Map.GetMapID()
+        map_id = GetID()
     else
         map_id = mapid
     end
@@ -35,27 +35,27 @@ function Map.GetMapName(mapid)
     return map_id_instance:GetName()
 end
 
-function Map.GetMapID()
-    return Map.map_instance().map_id:ToInt()
+function GetID()
+    return GetInstance().map_id:ToInt()
 end
 
-function Map.GetOutpostIDs()
-    local map_id_instance = PyMap.MapID(Map.GetMapID())
+function GetOutpostIDList()
+    local map_id_instance = PyMap.MapID(GetID())
     return map_id_instance:GetOutpostIDs()
 end
 
-function Map.GetOutpostNames()
-    local map_id_instance = PyMap.MapID(Map.GetMapID())
+function GetOutpostNameList()
+    local map_id_instance = PyMap.MapID(GetID())
     return map_id_instance:GetOutpostNames()
 end
 
-function Map.GetMapIDByName(name)
+function GetIDByName(name)
     if explorable_name_to_id[name] then
         return explorable_name_to_id[name]
     end
 
-    local outpost_ids = Map.GetOutpostIDs()
-    local outpost_names = Map.GetOutpostNames()
+    local outpost_ids = GetOutpostIDList()
+    local outpost_names = GetOutpostNameList()
     local outpost_name_to_id = {}
     for i, id in pairs(outpost_ids) do
         outpost_name_to_id[outpost_names[i]] = id
@@ -64,7 +64,7 @@ function Map.GetMapIDByName(name)
     return outpost_name_to_id[name] or 0
 end
 
-function Map.GetExplorableIDs()
+function GetExplorableIDList()
     local ids = {}
     for id, _ in pairs(explorables) do
         table.insert(ids, id)
@@ -72,7 +72,7 @@ function Map.GetExplorableIDs()
     return ids
 end
 
-function Map.GetExplorableNames()
+function GetExplorableNameList()
     local names = {}
     for _, name in pairs(explorables) do
         table.insert(names, name)
@@ -80,96 +80,92 @@ function Map.GetExplorableNames()
     return names
 end
 
-function Map.Travel(map_id)
-    Map.map_instance():Travel(map_id)
+function GoTo(map_id)
+    GetInstance():Travel(map_id)
 end
 
-function Map.TravelToDistrict(map_id, district, district_number)
-    Map.map_instance():Travel(map_id, district, district_number)
+function GoToDistrict(map_id, district, district_number)
+    GetInstance():Travel(map_id, district, district_number)
 end
 
-function Map.GetInstanceUptime()
-    return Map.map_instance().instance_time
+function GetUptime()
+    return GetInstance().instance_time
 end
 
-function Map.GetMaxPartySize()
-    return Map.map_instance().max_party_size
+function GetPartyLimit()
+    return GetInstance().max_party_size
 end
 
-function Map.IsInCinematic()
-    return Map.map_instance().is_in_cinematic
+function IsInCutscene()
+    return GetInstance().is_in_cinematic
 end
 
-function Map.SkipCinematic()
-    Map.map_instance():SkipCinematic()
+function SkipCutscene()
+    GetInstance():SkipCinematic()
 end
 
-function Map.HasEnterChallengeButton()
-    return Map.map_instance().has_enter_button
+function CanEnterChallenge()
+    return GetInstance().has_enter_button
 end
 
-function Map.EnterChallenge()
-    Map.map_instance():EnterChallenge()
+function CancelChallenge()
+    GetInstance():CancelEnterChallenge()
 end
 
-function Map.CancelEnterChallenge()
-    Map.map_instance():CancelEnterChallenge()
+function CanBeVanquished()
+    return GetInstance().is_vanquishable_area
 end
 
-function Map.IsVanquishable()
-    return Map.map_instance().is_vanquishable_area
+function GetDefeatedFoes()
+    return GetInstance().foes_killed
 end
 
-function Map.GetFoesKilled()
-    return Map.map_instance().foes_killed
+function GetRemainingFoes()
+    return GetInstance().foes_to_kill
 end
 
-function Map.GetFoesToKill()
-    return Map.map_instance().foes_to_kill
-end
-
-function Map.GetCampaign()
-    local campaign = Map.map_instance().campaign
+function GetCampaignInfo()
+    local campaign = GetInstance().campaign
     return campaign:ToInt(), campaign:GetName()
 end
 
-function Map.GetContinent()
-    local continent = Map.map_instance().continent
+function GetContinentInfo()
+    local continent = GetInstance().continent
     return continent:ToInt(), continent:GetName()
 end
 
-function Map.GetRegionType()
-    local region_type = Map.map_instance().region_type
+function GetRegionTypeInfo()
+    local region_type = GetInstance().region_type
     return region_type:ToInt(), region_type:GetName()
 end
 
-function Map.GetDistrict()
-    return Map.map_instance().district
+function GetCurrentDistrict()
+    return GetInstance().district
 end
 
-function Map.GetRegion()
-    local region = Map.map_instance().server_region
+function GetRegionInfo()
+    local region = GetInstance().server_region
     return region:ToInt(), region:GetName()
 end
 
-function Map.GetLanguage()
-    local language = Map.map_instance().language
+function GetLanguageInfo()
+    local language = GetInstance().language
     return language:ToInt(), language:GetName()
 end
 
-function Map.RegionFromDistrict(district)
-    local region = Map.map_instance():RegionFromDistrict(district)
+function GetRegionFromDistrict(district)
+    local region = GetInstance():RegionFromDistrict(district)
     return region:ToInt(), region:GetName()
 end
 
-function Map.LanguageFromDistrict(district)
-    local language = Map.map_instance():LanguageFromDistrict(district)
+function GetLanguageFromDistrict(district)
+    local language = GetInstance():LanguageFromDistrict(district)
     return language:ToInt(), language:GetName()
 end
 
-function Map.GetIsMapUnlocked(mapid)
+function IsUnlocked(mapid)
     if mapid == nil then
-        map_id = Map.GetMapID()
+        map_id = GetID()
     else
         map_id = mapid
     end
@@ -178,8 +174,8 @@ function Map.GetIsMapUnlocked(mapid)
     return map_id_instance:GetIsMapUnlocked(map_id_instance.map_id:ToInt())
 end
 
-function Map.GetAmountOfPlayersInInstance()
-    return Map.map_instance().amount_of_players_in_instance
+function GetPlayerCount()
+    return GetInstance().amount_of_players_in_instance
 end
 
 return Map
